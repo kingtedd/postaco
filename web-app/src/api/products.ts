@@ -16,6 +16,7 @@ export interface CreateProductDto {
   categoryId?: string
   price: number
   costPrice?: number
+  unit?: string
   barcode?: string
   isActive?: boolean
 }

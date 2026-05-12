@@ -15,7 +15,7 @@ const ReportsPage = () => {
   const [startDate, setStartDate] = useState(firstOfMonth)
   const [endDate, setEndDate] = useState(today)
 
-  const { data: summary, isLoading: loadingSummary } = useQuery({
+  const { data: summary } = useQuery({
     queryKey: ['reports', 'summary', startDate, endDate],
     queryFn: () => reportsApi.getSummary({ startDate, endDate }),
   })

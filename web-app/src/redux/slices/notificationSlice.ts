@@ -26,9 +26,6 @@ const notificationSlice = createSlice({
     ) => {
       const id = `${notificationId++}`
       state.notifications.push({ ...action.payload, id })
-      setTimeout(() => {
-        notificationSlice.caseReducers.removeNotification(state, { payload: id, type: 'notification/removeNotification', meta: undefined, error: null })
-      }, 3000)
     },
     removeNotification: (state, action: PayloadAction<string>) => {
       state.notifications = state.notifications.filter(

@@ -13,7 +13,6 @@ const RecipesPage = () => {
   const [page, setPage] = useState(1)
   const [modalOpen, setModalOpen] = useState(false)
   const [detailOpen, setDetailOpen] = useState(false)
-  const [editId, setEditId] = useState<string | null>(null)
   const [viewRecipe, setViewRecipe] = useState<any>(null)
 
   const { data, isLoading } = useQuery({
@@ -49,7 +48,6 @@ const RecipesPage = () => {
 
   const openNew = () => {
     reset()
-    setEditId(null)
     setModalOpen(true)
   }
 
