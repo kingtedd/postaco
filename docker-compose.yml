@@ -65,19 +65,19 @@ services:
       retries: 3
       start_period: 15s
 
-  # Frontend Web App (optional - can be run separately)
-  # web:
-  #   build:
-  #     context: ./web-app
-  #     dockerfile: Dockerfile
-  #   container_name: postaco_web
-  #   restart: unless-stopped
-  #   ports:
-  #     - "3000:80"
-  #   depends_on:
-  #     - backend
-  #   environment:
-  #     REACT_APP_API_URL: http://backend:5000
+  # Frontend Web App
+  web:
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://103.190.214.182:5000
+    container_name: postaco_web
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
