@@ -11,7 +11,7 @@ const prisma = new PrismaClient({
 });
 
 // Event Listeners
-prisma.$on('query', (e) => {
+prisma.$on('query', (e: any) => {
   if (process.env.LOG_LEVEL === 'debug') {
     logger.debug(`Query: ${e.query}`);
     logger.debug(`Params: ${e.params}`);
@@ -19,11 +19,11 @@ prisma.$on('query', (e) => {
   }
 });
 
-prisma.$on('error', (e) => {
+prisma.$on('error', (e: any) => {
   logger.error('Database error:', e);
 });
 
-prisma.$on('warn', (e) => {
+prisma.$on('warn', (e: any) => {
   logger.warn('Database warning:', e);
 });
 

@@ -40,7 +40,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     };
     req.token = token;
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Auth middleware error:', error);
 
@@ -60,7 +60,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
       });
     }
 
-    res.status(401).json({
+    return res.status(401).json({
       success: false,
       message: 'Unauthorized'
     });

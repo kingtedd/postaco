@@ -40,10 +40,10 @@ export function tenantMiddleware(req: Request, res: Response, next: NextFunction
       });
     }
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Tenant middleware error:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Tenant middleware error'
     });

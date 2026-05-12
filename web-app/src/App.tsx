@@ -16,7 +16,18 @@ import ReportsPage from './pages/reports/ReportsPage'
 import AdminUsersPage from './pages/admin/UsersPage'
 import NotFoundPage from './pages/NotFoundPage'
 
-const queryClient = new QueryClient()
+// Common
+import ProtectedRoute from './components/common/ProtectedRoute'
+import Toast from './components/common/Toast'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+})
 
 function App() {
   return (
@@ -28,20 +39,21 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             {/* Protected Routes */}
-            <Route path="/" element={<DashboardPage />} />
-            <Route path="/cashier" element={<CashierPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/stocks" element={<StocksPage />} />
-            <Route path="/recipes" element={<RecipesPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+            <Route path="/cashier" element={<ProtectedRoute><CashierPage /></ProtectedRoute>} />
+            <Route path="/products" element={<ProtectedRoute><ProductsPage /></ProtectedRoute>} />
+            <Route path="/stocks" element={<ProtectedRoute><StocksPage /></ProtectedRoute>} />
+            <Route path="/recipes" element={<ProtectedRoute><RecipesPage /></ProtectedRoute>} />
+            <Route path="/reports" element={<ProtectedRoute><ReportsPage /></ProtectedRoute>} />
 
             {/* Admin Routes */}
-            <Route path="/admin/users" element={<AdminUsersPage />} />
+            <Route path="/admin/users" element={<ProtectedRoute><AdminUsersPage /></ProtectedRoute>} />
 
             {/* 404 */}
             <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
+          <Toast />
         </Router>
       </QueryClientProvider>
     </Provider>

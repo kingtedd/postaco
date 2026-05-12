@@ -13,8 +13,6 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postaco_user"]
       interval: 10s
@@ -26,8 +24,6 @@ services:
     image: redis:7-alpine
     container_name: postaco_redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -63,11 +59,11 @@ services:
       - ./backend/prisma:/app/prisma
     command: npm run dev
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/health"]
       interval: 30s
       timeout: 3s
       retries: 3
-      start_period: 5s
+      start_period: 15s
 
   # Frontend Web App (optional - can be run separately)
   # web:
